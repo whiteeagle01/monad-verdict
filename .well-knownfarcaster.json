@@ -1,0 +1,8 @@
+{
+  "name": "Monad Verdict",
+  "description": "Vote for your favorite crypto contenders on Monad Testnet!",
+  "image": "https://placehold.co/400x200/000000/FFFFFF?text=Monad+Verdict",
+  "frame_url": "https://monad-verdict.vercel.app/",
+  "redirect_url": "https://monad-verdict.vercel.app/",
+  "version": "1.0.0"
+}
