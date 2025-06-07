@@ -3,12 +3,11 @@ import React, { useState, useEffect } from 'react';
 import { Award, Users } from 'lucide-react';
 import { mockCryptocurrencies } from './mockData';
 import { db } from './firebase';
-import { doc, runTransaction, getDoc } from 'firebase/firestore';
+import { doc, runTransaction } from 'firebase/firestore';
 import { useAccount, useSendTransaction } from 'wagmi';
 import { parseEther } from 'viem';
 
 const FEE_RECIPIENT_ADDRESS = '0x11B4dd24463b1bCd55C91940E0e356e8231DeA43';
-const ADMIN_ADDRESS = '0x11B4dd24463b1bCd55C91940E0e356e8231DeA43';
 const VOTING_FEE_AMOUNT = 0.001;
 const TIMED_FEE_AMOUNT = 0.1;
 const TIMED_FEE_INTERVAL_MS = 20 * 60 * 1000;
@@ -16,7 +15,6 @@ const TIMED_FEE_DURATION_MS = 5 * 60 * 1000;
 
 export default function VerdictMiniApp() {
   const [votes, setVotes] = useState({});
-  const [lastFee, setLastFee] = useState(null);
   const [pair, setPair] = useState(() => {
     const shuffled = [...mockCryptocurrencies].sort(() => 0.5 - Math.random());
     return [shuffled[0], shuffled[1]];
@@ -75,9 +73,9 @@ export default function VerdictMiniApp() {
         }
       }));
 
-      // admin için fee geçmişini güncelle
-      const updatedDoc = await getDoc(ref);
-      setLastFee(updatedDoc.data().lastFee);
+      // 🛑 LastFee bilgisi kaydediliyor ama kullanıcıya gösterilmiyor.
+      // İstersen admin paneli için Firestore'dan manuel kontrol edebilirsin.
+
     } catch (err) {
       console.error('Transaction failed:', err);
       alert('Fee transfer failed. Please try again.');
@@ -126,16 +124,6 @@ export default function VerdictMiniApp() {
           </div>
         ))}
       </div>
-
-      {address?.toLowerCase() === ADMIN_ADDRESS.toLowerCase() && lastFee && (
-        <div className="mt-10 text-sm bg-gray-900 p-4 rounded-xl w-full max-w-2xl border border-gray-700">
-          <h2 className="text-lg font-bold mb-2 text-white">Last Fee Transaction</h2>
-          <p className="text-gray-300">Amount: {lastFee.amount} MON</p>
-          <p className="text-gray-300">To: {lastFee.to}</p>
-          <p className="text-gray-300">From: {lastFee.voter}</p>
-          <p className="text-gray-400 text-xs">{new Date(lastFee.timestamp).toLocaleString()}</p>
-        </div>
-      )}
     </div>
   );
 }
