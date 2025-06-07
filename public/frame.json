@@ -1,0 +1,9 @@
+{
+  "name": "Monad Verdict",
+  "description": "Vote for your favorite crypto on Monad",
+  "image": "https://monad-verdict.vercel.app/cover.png",
+  "frame": {
+    "button": "Vote Now",
+    "post_url": "https://monad-verdict.vercel.app/api/frame"
+  }
+}
