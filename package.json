@@ -5,7 +5,7 @@
   "description": "Monad Verdict - Farcaster Mini App",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "npx vite build",
     "preview": "vite preview"
   },
   "dependencies": {
