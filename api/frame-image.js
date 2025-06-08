@@ -1,7 +1,7 @@
 import { ImageResponse } from '@vercel/og';
 
 export const config = {
-  runtime: 'edge',
+  runtime: 'edge'  // ✅ Bu satır zorunlu
 };
 
 export default function handler() {
@@ -13,7 +13,10 @@ export default function handler() {
           fontSize: 40,
           background: 'black',
           color: 'white',
-          padding: '40px',
+          width: '100%',
+          height: '100%',
+          alignItems: 'center',
+          justifyContent: 'center',
         }}
       >
         Vote for the next crypto champion 🥇
