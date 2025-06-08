@@ -1,8 +1,8 @@
 // api/current-pair.js
-const { firestore } = require("../src/lib/firebase");
-const { Timestamp } = require("firebase-admin/firestore");
+import { firestore } from "../src/lib/firebase.js";
+import { Timestamp } from "firebase-admin/firestore";
 
-const RESET_INTERVAL_MS = 5 * 60 * 60 * 1000; // 5 saat
+const RESET_INTERVAL_MS = 5 * 60 * 60 * 1000;
 
 const ALL_CRYPTOS = [
   { id: "sol", name: "Solana", symbol: "SOL" },
@@ -12,7 +12,7 @@ const ALL_CRYPTOS = [
   { id: "blast", name: "Blast", symbol: "BLAST" }
 ];
 
-module.exports = async (req, res) => {
+export default async function handler(req, res) {
   try {
     const ref = firestore.collection("vote_round").doc("current");
     const snapshot = await ref.get();
@@ -49,7 +49,7 @@ module.exports = async (req, res) => {
     console.error("🔥 API error in current-pair:", err);
     return res.status(500).send("Internal Server Error");
   }
-};
+}
 
 function getRandomPair() {
   const shuffled = [...ALL_CRYPTOS].sort(() => 0.5 - Math.random());
