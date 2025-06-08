@@ -13,3 +13,4 @@ if (!getApps().length) {
 }
 
 export const firestore = getFirestore();
+console.log("🔒 Private key exists?", !!process.env.FIREBASE_PRIVATE_KEY);
